@@ -167,44 +167,44 @@
                   <input
                     v-model="customDraft[model.name].cacheCreation"
                     :placeholder="placeholderFor(model.cacheCreateCost)"
-                    type="number"
-                    step="0.01"
-                    min="0"
                     class="w-24 rounded-md border border-gray-200 bg-white px-2 py-1 text-right font-mono text-xs text-gray-700 placeholder-gray-300 transition focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-600"
+                    min="0"
+                    step="0.01"
                     title="自定义缓存创建价格 ($/MTok)"
+                    type="number"
                   />
                   <input
                     v-model="customDraft[model.name].cacheRead"
                     :placeholder="placeholderFor(model.cacheReadCost)"
-                    type="number"
-                    step="0.01"
-                    min="0"
                     class="w-24 rounded-md border border-gray-200 bg-white px-2 py-1 text-right font-mono text-xs text-gray-700 placeholder-gray-300 transition focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-600"
+                    min="0"
+                    step="0.01"
                     title="自定义缓存读取价格 ($/MTok)"
+                    type="number"
                   />
                 </div>
                 <div class="flex flex-col gap-1">
                   <button
-                    :disabled="!canSaveCustom(model.name) || savingModel === model.name"
                     :class="[
                       'rounded-md px-2 py-1 text-xs font-medium transition',
                       canSaveCustom(model.name) && savingModel !== model.name
                         ? 'bg-blue-500 text-white hover:bg-blue-600'
                         : 'cursor-not-allowed bg-gray-200 text-gray-400 dark:bg-gray-700 dark:text-gray-500'
                     ]"
+                    :disabled="!canSaveCustom(model.name) || savingModel === model.name"
                     @click="saveCustom(model.name)"
                   >
                     <i v-if="savingModel === model.name" class="fas fa-spinner fa-spin" />
                     <span v-else>保存</span>
                   </button>
                   <button
-                    :disabled="!hasCustom(model.name) || savingModel === model.name"
                     :class="[
                       'rounded-md px-2 py-1 text-xs font-medium transition',
                       hasCustom(model.name) && savingModel !== model.name
                         ? 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600'
                         : 'cursor-not-allowed bg-gray-50 text-gray-300 dark:bg-gray-800 dark:text-gray-600'
                     ]"
+                    :disabled="!hasCustom(model.name) || savingModel === model.name"
                     @click="resetCustom(model.name)"
                   >
                     重置
