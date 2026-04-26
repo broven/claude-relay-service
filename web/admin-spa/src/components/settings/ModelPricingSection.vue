@@ -166,18 +166,18 @@
                 <div class="flex flex-col gap-1">
                   <input
                     v-model="customDraft[model.name].cacheCreation"
-                    :placeholder="placeholderFor(model.cacheCreateCost)"
                     class="w-24 rounded-md border border-gray-200 bg-white px-2 py-1 text-right font-mono text-xs text-gray-700 placeholder-gray-300 transition focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-600"
                     min="0"
+                    :placeholder="placeholderFor(model.cacheCreateCost)"
                     step="0.01"
                     title="自定义缓存创建价格 ($/MTok)"
                     type="number"
                   />
                   <input
                     v-model="customDraft[model.name].cacheRead"
-                    :placeholder="placeholderFor(model.cacheReadCost)"
                     class="w-24 rounded-md border border-gray-200 bg-white px-2 py-1 text-right font-mono text-xs text-gray-700 placeholder-gray-300 transition focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500/30 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-600"
                     min="0"
+                    :placeholder="placeholderFor(model.cacheReadCost)"
                     step="0.01"
                     title="自定义缓存读取价格 ($/MTok)"
                     type="number"
