@@ -151,8 +151,22 @@ class RedisClient {
         port: config.redis.port,
         password: config.redis.password,
         db: config.redis.db,
+        // ⏱️ 显式传入 config 中已定义但此前被遗漏的超时。
+        // 缺少 commandTimeout 时,若底层 socket 变成半开(例如 redis 容器被重建换了 IP),
+        // 命令会永久挂起而非快速失败 —— 这正是 /web/auth/login 等依赖 Redis 的接口 504 的根因。
+        connectTimeout: config.redis.connectTimeout,
+        commandTimeout: config.redis.commandTimeout,
+        // 🫀 启用 TCP keepalive,让内核主动探测并回收已死连接,避免长期处于半开状态。
+        keepAlive: config.redis.keepAlive || 30000,
         retryDelayOnFailover: config.redis.retryDelayOnFailover,
         maxRetriesPerRequest: config.redis.maxRetriesPerRequest,
+        // 🔄 指数退避重连(最多 2s 间隔),每次重连都会重新解析 DNS,从而拿到 redis 新 IP。
+        retryStrategy: (times) => Math.min(times * 200, 2000),
+        // 🔁 底层连接级错误(redis 被重建/换 IP/DNS 暂时不可用)时强制重连。
+        reconnectOnError: (err) =>
+          ['READONLY', 'ECONNRESET', 'ETIMEDOUT', 'EHOSTUNREACH', 'EAI_AGAIN'].some((code) =>
+            err.message.includes(code)
+          ),
         lazyConnect: config.redis.lazyConnect,
         tls: config.redis.enableTLS ? {} : false
       })

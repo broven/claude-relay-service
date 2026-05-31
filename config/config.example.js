@@ -26,6 +26,7 @@ const config = {
     db: parseInt(process.env.REDIS_DB) || 0,
     connectTimeout: 10000,
     commandTimeout: 5000,
+    keepAlive: 30000,
     retryDelayOnFailover: 100,
     maxRetriesPerRequest: 3,
     lazyConnect: true,
